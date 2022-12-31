@@ -30,9 +30,9 @@ bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --grou
 
 
 Resource:-
-https://svn.apache.org/repos/asf/kafka/site/082/quickstart.html
-https://kafka.js.org/docs/introduction
-https://www.youtube.com/watch?v=gn2zLFRQ8rI&list=PLxoOrmZMsAWxXBF8h_TPqYJNsh3x4GyO4
+1.) https://svn.apache.org/repos/asf/kafka/site/082/quickstart.html
+2.) https://kafka.js.org/docs/introduction
+3.) https://www.youtube.com/watch?v=gn2zLFRQ8rI&list=PLxoOrmZMsAWxXBF8h_TPqYJNsh3x4GyO4
 
 
 
