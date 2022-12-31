@@ -28,6 +28,9 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --f
 To check lag in topic:-
 bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group group1
 
+To check brokers:-
+bin/kafka-topics.sh --describe --bootstrap-server localhost:9092 --topic test-replication
+
 
 Resource:-
 1.) https://svn.apache.org/repos/asf/kafka/site/082/quickstart.html
@@ -83,3 +86,11 @@ REPLICATION/REPLICATION FACTOR:-
 3.) We have ISR(in sync replicas) which replicte the current topics partation in different brokers.
     so all the read and write will be going to the leader and ISR will replicate the data. If Broker 1 is down the follower(replicated data one) will become the leader until the primary one is up and running.
 4.) It helps in fault taularance, high avalibility.    
+
+
+
+TO RUN MULTIPLE BROKERS ON LOCAL MACHINE FOR REPLICATION AND AVAILABLITY:-
+
+1.) Go to config duplicate server.properties file as server-1.properties && server-2.properties and past kafkaServer1 and kafkaServer2 respectively.
+2.) Run the command bin/kafka-server-start.sh config/server-1.properties, bin/kafka-server-start.sh config/server-2.properties
+3.) Make down the server 

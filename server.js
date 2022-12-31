@@ -6,7 +6,7 @@ var app = express();
 
 const kafka = new Kafka({
     clientId: 'my-app',
-    brokers: ['localhost:9092'],
+    brokers: ['localhost:9092', 'localhost:9093', 'localhost:9094'],
 })
 
 const producer = kafka.producer()
@@ -19,12 +19,12 @@ app.get('/', async (req, res, next) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 return resolve();
-            }, 4000)
+            }, 3000)
         })
     }
 
     // FOR BATCH PROCESSING
-    // let i = 0;
+    let i = 0;
     // let arr = [];
     // while (i < 11) {
     //     arr.push(payload.getPayload());
@@ -38,14 +38,18 @@ app.get('/', async (req, res, next) => {
     //     }
     //     i++;
     // }
+    while (i < 50) {
+        const data = JSON.stringify(payload.getPayload());
+        await producer.send({
+            topic: 'test-replication',
+            messages: [
+                { value: "" + i } // send data to particular partation  { value: data, partition: 0 }
+            ],
+        })
+        i++;
+        await deyaly();
+    }
 
-    const data = JSON.stringify(payload.getPayload());
-    await producer.send({
-        topic: 'test',
-        messages: [
-            { value: data } // send data to particular partation  { value: data, partition: 0 }
-        ],
-    })
 
     res.send("Payload send successfully !!!!");
 })
