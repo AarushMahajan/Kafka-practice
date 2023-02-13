@@ -34,8 +34,12 @@ bin/kafka-topics.sh --describe --bootstrap-server localhost:9092 --topic test-re
 
 Resource:-
 1.) https://svn.apache.org/repos/asf/kafka/site/082/quickstart.html
+
 2.) https://kafka.js.org/docs/introduction
+
 3.) https://www.youtube.com/watch?v=gn2zLFRQ8rI&list=PLxoOrmZMsAWxXBF8h_TPqYJNsh3x4GyO4
+
+4.) https://www.youtube.com/watch?v=-rhMgEeWOQw&list=PLxv3SnR5bZE82Cv4wozg2uZvaOlDEbO67
 
 
 
@@ -47,21 +51,32 @@ advertised.listeners=PLAINTEXT://localhost:9092
 
 CONSUMER GROUP:-
 
-1.) For each consumer we should have the consumer group present. A consumer can servive in the consumer group only
+1.) For each consumer we should have the consumer group present. A consumer can servive in the consumer group only 
+
 2.) Each consumer can be distributed in different brockers in different machines (fault toulrance).
+
 3.) One consumer is assigned to a particular partation.
+
 4.) In multi partation and 1 consumer system consumer consume the messages in round-robin fasion
     i.e 2P and 1C 
     * 1P -> 1C (1st iteratation)
     * 2p -> 1C (2nd iteratation)
+
 5.) It is recomended to have consumer < no of partations for a particular so that consumers are not sitting idel.    
 
 
 PRODUCERS:-
 
 1.) PRODUCER produces the messages that are consumed my the consumers.
+
 2.) Producer can send data to a particular partation also.
+
 3.) We can send and consume the data in batch.
+
+4.) Payload in which data is sent is :-     
+Message:
+                                                Key: <To which partation data to be sent>
+                                            payload: <data to be sent>
 
 
 TOPICS:-
@@ -74,17 +89,39 @@ TOPICS:-
 PARTATION:-
 
 1.) Every topic can have multiple partation.
+
 2.) Data in partation is immutable we cannot delete, update the data.
+
 3.) Data in partation have a TTL time that can be configured.
+
 4.) Partation is like array like structure where index is call offset e.g P0[1,2,3,4,5]
+
 5.) When a server is down we can start consuming the messages from where we have left with help of the offset no.
+
+6.)                                             Message:
+                                                Key: <To which partation data to be sent>
+                                            payload: <data to be sent>
+
+
+OFFSET:-
+
+1.) Sequencial no given to the partation.
+
+2.) 3 types of offset -> 
+      # Log-end:- last message written to offset
+      # Current-offset:-
+      # Commit-offset:- 
+
 
 REPLICATION/REPLICATION FACTOR:-
 
 1.) We can set the replication factor to (int value i.e 2).
+
 2.) Replication factor decides how many replication is made.
+
 3.) We have ISR(in sync replicas) which replicte the current topics partation in different brokers.
     so all the read and write will be going to the leader and ISR will replicate the data. If Broker 1 is down the follower(replicated data one) will become the leader until the primary one is up and running.
+
 4.) It helps in fault taularance, high avalibility.    
 
 
@@ -92,5 +129,7 @@ REPLICATION/REPLICATION FACTOR:-
 TO RUN MULTIPLE BROKERS ON LOCAL MACHINE FOR REPLICATION AND AVAILABLITY:-
 
 1.) Go to config duplicate server.properties file as server-1.properties && server-2.properties and past kafkaServer1 and kafkaServer2 respectively.
+
 2.) Run the command bin/kafka-server-start.sh config/server-1.properties, bin/kafka-server-start.sh config/server-2.properties
+
 3.) Make down the server 
